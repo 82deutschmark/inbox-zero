@@ -13,6 +13,7 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "editor.formatOnPaste": false,
   "emmet.showExpandedAbbreviation": "never",
+  "markdownlint.enable": false,
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   },

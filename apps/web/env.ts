@@ -133,7 +133,7 @@ export const env = createEnv({
         value
           ?.split(",")
           .map((s) => s.trim())
-          .filter(Boolean)
+          .filter(Boolean),
       ),
 
     // license

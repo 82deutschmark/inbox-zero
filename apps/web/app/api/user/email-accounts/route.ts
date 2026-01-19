@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
+import { auth } from "@/utils/auth";
 import prisma from "@/utils/prisma";
-import { withAuth } from "@/utils/middleware";
+import { withError } from "@/utils/middleware";
 
 export type GetEmailAccountsResponse = Awaited<
   ReturnType<typeof getEmailAccounts>
@@ -50,8 +51,14 @@ async function getEmailAccounts({ userId }: { userId: string }) {
   return { emailAccounts: accountsWithNames };
 }
 
-export const GET = withAuth("user/email-accounts", async (request) => {
-  const userId = request.auth.userId;
-  const result = await getEmailAccounts({ userId });
+export const GET = withError("user/email-accounts", async () => {
+  const session = await auth();
+
+  // Return empty list for unauthenticated requests instead of 401
+  if (!session || !session.user) {
+    return NextResponse.json({ emailAccounts: [] });
+  }
+
+  const result = await getEmailAccounts({ userId: session.user.id });
   return NextResponse.json(result);
 });
