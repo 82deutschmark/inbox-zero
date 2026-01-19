@@ -34,6 +34,13 @@ export function EmailAccountProvider({
         if (response.ok) {
           const emailAccounts: GetEmailAccountsResponse = await response.json();
           setData(emailAccounts);
+        } else if (response.status !== 401) {
+          // 401 is expected on unauthenticated pages like /login, don't log error
+          console.error(
+            "Error fetching accounts:",
+            response.status,
+            response.statusText,
+          );
         }
       } catch (error) {
         console.error("Error fetching accounts:", error);
