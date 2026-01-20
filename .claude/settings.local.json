@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command \"Test-Path $PROFILE\")",
+      "Bash(powershell -Command \"echo $PROFILE\")",
+      "Bash(powershell -Command \"Get-ExecutionPolicy -Scope CurrentUser\")",
+      "Bash(powershell -Command \"$PROFILE\")",
+      "Bash(powershell:*)"
+    ]
+  }
+}
