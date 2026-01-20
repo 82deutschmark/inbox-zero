@@ -20,6 +20,7 @@
     "@biomejs/biome": "2.2.2",
     "@clack/prompts": "0.11.0",
     "@turbo/gen": "2.6.2",
+    "codebuff": "^1.0.589",
     "commander": "14.0.2",
     "husky": "9.1.7",
     "lint-staged": "16.2.5",
@@ -42,6 +43,16 @@
     "overrides": {
       "@types/react": "19.0.10",
       "@types/react-dom": "19.0.4"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "@prisma/engines",
+      "@sentry/cli",
+      "codebuff",
+      "core-js",
+      "core-js-pure",
+      "esbuild",
+      "prisma",
+      "sharp"
+    ]
   }
 }
