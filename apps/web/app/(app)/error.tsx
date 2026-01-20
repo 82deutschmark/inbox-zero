@@ -34,7 +34,8 @@ export default function ErrorBoundary({
           </EmptyMedia>
           <EmptyTitle>Something went wrong</EmptyTitle>
           <EmptyDescription>
-            {error.message || "An unexpected error occurred."}
+            {error.message ||
+              "An unexpected error occurred. Please refresh the page or contact support if the issue continues."}
           </EmptyDescription>
         </EmptyHeader>
         <div className="mt-6 flex flex-col gap-2 sm:flex-row">

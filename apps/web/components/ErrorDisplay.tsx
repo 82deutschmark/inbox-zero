@@ -42,13 +42,17 @@ export function ErrorDisplay(props: {
           <EmptyMedia variant="icon" className="bg-destructive/10">
             <AlertCircle className="text-destructive" />
           </EmptyMedia>
-          <EmptyTitle>There was an error</EmptyTitle>
+          <EmptyTitle>Something went wrong</EmptyTitle>
           <EmptyDescription>
-            Please refresh or contact support at{" "}
-            <a href={`mailto:${env.NEXT_PUBLIC_SUPPORT_EMAIL}`}>
+            We encountered an unexpected error. Try refreshing the page or
+            contact support at{" "}
+            <a
+              href={`mailto:${env.NEXT_PUBLIC_SUPPORT_EMAIL}`}
+              className="underline"
+            >
               {env.NEXT_PUBLIC_SUPPORT_EMAIL}
             </a>{" "}
-            if the error persists.
+            if the issue continues.
           </EmptyDescription>
         </EmptyHeader>
       </Empty>

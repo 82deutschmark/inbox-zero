@@ -2,7 +2,12 @@ import { ZodError } from "zod";
 import { type NextRequest, NextResponse, after } from "next/server";
 import { randomUUID } from "node:crypto";
 import * as Sentry from "@sentry/nextjs";
-import { captureException, checkCommonErrors, SafeError } from "@/utils/error";
+import {
+  captureException,
+  checkCommonErrors,
+  SafeError,
+  getErrorMessage,
+} from "@/utils/error";
 import { env } from "@/env";
 import { logErrorToPosthog } from "@/utils/error.server";
 import { createScopedLogger, type Logger } from "@/utils/logger";
@@ -180,10 +185,12 @@ function withMiddleware<T extends NextRequest>(
       });
       captureException(error, { extra: { url: req.url } });
 
-      return NextResponse.json(
-        { error: "An unexpected error occurred" },
-        { status: 500 },
-      );
+      const extractedMessage = getErrorMessage(error);
+      const errorResponse =
+        extractedMessage ||
+        "An unexpected error occurred. Please try again or contact support if the issue persists.";
+
+      return NextResponse.json({ error: errorResponse }, { status: 500 });
     }
   };
 }

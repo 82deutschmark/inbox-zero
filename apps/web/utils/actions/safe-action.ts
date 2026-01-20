@@ -8,7 +8,7 @@ import { auth } from "@/utils/auth";
 import { createScopedLogger } from "@/utils/logger";
 import prisma from "@/utils/prisma";
 import { isAdmin } from "@/utils/admin";
-import { captureException, SafeError } from "@/utils/error";
+import { captureException, SafeError, getErrorMessage } from "@/utils/error";
 import { env } from "@/env";
 
 // TODO: take functionality from `withActionInstrumentation` and move it here (apps/web/utils/actions/middleware.ts)
@@ -52,7 +52,11 @@ const baseClient = createSafeActionClient({
       },
     });
 
-    return "An unknown error occurred.";
+    const extractedMessage = getErrorMessage(error);
+    return (
+      extractedMessage ||
+      "An unexpected error occurred. Please try again or contact support if the issue persists."
+    );
   },
 }).use(async ({ next, metadata }) => {
   const requestId = randomUUID();
